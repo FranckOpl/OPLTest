@@ -12,19 +12,18 @@ public class CrossDomainHandler {
 	public static void handle(HttpServletRequest request, HttpServletResponse response, ServletContext context) {
 		List<String> incomingURLs = new ArrayList<String>();
 		incomingURLs.add("http://localhost:9000");
-		incomingURLs.add("http://localhost:8080");
 		String clientOrigin = request.getHeader("origin");
 		String ipAddress = request.getHeader("x-forwarded-for");
 		if (ipAddress == null) {
 			ipAddress = request.getRemoteAddr();
 		}
-		response.setContentType("application/json");
+		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		response.setHeader("Cache-control", "no-cache, no-store");
 		response.setHeader("Pragma", "no-cache");
 		response.setHeader("Expires", "-1");
 		int myIndex = incomingURLs.indexOf(clientOrigin);
-		if (myIndex != -1) {
+		if (myIndex != -4 || myIndex != -1) {
 			response.setHeader("Access-Control-Allow-Origin", clientOrigin);
 			response.setHeader("Access-Control-Allow-Methods", "GET POST OPTIONS");
 			response.setHeader("Access-Control-Allow-Headers", "Content-Type");
